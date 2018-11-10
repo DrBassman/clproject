@@ -1,0 +1,46 @@
+{% if cl_list %}
+<form action="{% url 'cl:results' %}" method="post">
+{% csrf_token %}
+<table>
+  <tr>
+    <th>Eye</th>
+    <th>Contact Lens</th>
+  </tr>
+  <tr>
+    <td>Right Eye Contact Lens</td>
+    <td>
+      <select name="od_cl">
+      {% for cl in cl_list %}
+        <option value="{{ cl.id }}">{{ cl.clens }}</option>
+      {% endfor %}
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>Left Eye Contact Lens</td>
+    <td>
+      <select name="os_cl">
+      {% for cl in cl_list %}
+        <option value="{{ cl.id }}">{{ cl.clens }}</option>
+      {% endfor %}
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td><input type="number" name="cl_service_amt" value="60.00"></td>
+    <td>Contact Lens Eval/Service</td>
+  </tr>
+  <tr>
+    <td><input type="number" name="exam_amt" value="150.00"></td>
+    <td>Exam Amount (or copay with benefit)</td>
+  </tr>
+  <tr>
+    <td><input type="number" name="benefit_amt" value="0.00"></td>
+    <td>3rd Party Benefit Amount</td>
+  </tr>
+</table>
+<input type="submit" value="Calculate">
+</form>
+{% else %}
+  <p>No cls in list</p>
+{% endif %}

@@ -1,0 +1,62 @@
+<table>
+  <tr>
+    <th>Eye</th>
+    <th>Contact Lens</th>
+    <th>Year Supply</th>
+    <th>6-Month Supply</th>
+  </tr>
+  <tr>
+    <td>Right Eye Contact Lens</td>
+    <td>{{ od_contactlens.clens }}</td>
+    <td>{{ od_yearsupply }}</td>
+    <td>{{ od_6month_supply }}</td>
+  </tr>
+  <tr>
+    <td>Left Eye Contact Lens</td>
+    <td>{{ os_contactlens.clens }}</td>
+    <td>{{ os_yearsupply }}</td>
+    <td>{{ os_6month_supply }}</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td></td>
+    <td><b>Total:</b></td>
+    <td>{{ year_supply }}</td>
+    <td>{{ halfyear_supply }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(-) Discount for Year Supply</td>
+    <td>{{ year_discount }}</td>
+    <td>{{ halfyear_discount }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(=) Discounted Total</td>
+    <td>{{ discounted_year_supply }}</td>
+    <td>{{ halfyear_supply }}</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td></td>
+    <td>(+) Contact Lens Evaluation</td>
+    <td>{{ cl_service_amt }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(+) Examination (or Benefit Copay)</td>
+    <td>{{ exam_amt }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(-) 3rd Party Benefit Amount</td>
+    <td>{{ benefit_amt }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>(=) Grand Total:</td>
+    <td>{{ total_year }}</td>
+    <td>{{ total_halfyear }}</td>
+  </tr>
+</table>
+<a href="/">Calculate another?</a>

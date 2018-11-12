@@ -1,21 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'cl/style.css' %}">
+
+    <title>Contact Comparison (results)</title>
+  </head>
+  <body>
 <table>
   <tr>
     <th>Eye</th>
     <th>Contact Lens</th>
     <th>Year Supply</th>
     <th>6-Month Supply</th>
+    <th colspan="2" class="tdcenter">Date: {{ exam_dt }} / Rebates</th>
   </tr>
   <tr>
     <td>Right Eye Contact Lens</td>
     <td>{{ od_contactlens.clens }}</td>
     <td>{{ od_yearsupply }}</td>
     <td>{{ od_6month_supply }}</td>
+    {% for r in od_rebates %}
+    <td>{{ r.desc }}</td>
+    <td>{{ r.amt }}</td>
+    {% endfor %}
   </tr>
   <tr>
     <td>Left Eye Contact Lens</td>
     <td>{{ os_contactlens.clens }}</td>
     <td>{{ os_yearsupply }}</td>
     <td>{{ os_6month_supply }}</td>
+    {% for r in os_rebates %}
+    <td>{{ r.desc }}</td>
+    <td>{{ r.amt }}</td>
+    {% endfor %}
   </tr>
   <tr><td></td></tr>
   <tr>
@@ -23,6 +44,10 @@
     <td><b>Total:</b></td>
     <td>{{ year_supply }}</td>
     <td>{{ halfyear_supply }}</td>
+    {% for r in rebates %}
+    <td></td>
+    <td>{{ r.amt }}</td>
+    {% endfor %}
   </tr>
   <tr>
     <td></td>
@@ -35,28 +60,39 @@
     <td>(=) Discounted Total</td>
     <td>{{ discounted_year_supply }}</td>
     <td>{{ halfyear_supply }}</td>
+    {% for r in rebates %}
+    <td></td>
+    <td>{{ r.dtot }}</td>
+    {% endfor %}
   </tr>
   <tr><td></td></tr>
   <tr>
     <td></td>
     <td>(+) Contact Lens Evaluation</td>
-    <td>{{ cl_service_amt }}</td>
+    <td colspan="2" class="tdcenter">{{ cl_service_amt }}</td>
   </tr>
   <tr>
     <td></td>
     <td>(+) Examination (or Benefit Copay)</td>
-    <td>{{ exam_amt }}</td>
+    <td colspan="2" class="tdcenter">{{ exam_amt }}</td>
   </tr>
   <tr>
     <td></td>
     <td>(-) 3rd Party Benefit Amount</td>
-    <td>{{ benefit_amt }}</td>
+    <td colspan="2" class="tdcenter">{{ benefit_amt }}</td>
   </tr>
+  <tr><td></td></tr>
   <tr>
     <td></td>
     <td>(=) Grand Total:</td>
     <td>{{ total_year }}</td>
     <td>{{ total_halfyear }}</td>
+    {% for r in rebates %}
+    <td></td>
+    <td>{{ r.gtot }}</td>
+    {% endfor %}
   </tr>
 </table>
 <a href="/">Calculate another?</a>
+</body>
+</html>

@@ -13,3 +13,14 @@ class ContactAttribute(models.Model):
     clenses = models.ManyToManyField(ContactLens)
     def __str__(self):
         return self.attribute
+
+class ContactRebate(models.Model):
+    desc = models.CharField(max_length=64)
+    from_dt = models.DateField()
+    to_dt = models.DateField()
+    lenses = models.ManyToManyField(ContactLens)
+    exclusive = models.BooleanField(default=True)
+    amt = models.DecimalField(max_digits=7, decimal_places=2)
+    half_amt = models.DecimalField(default=0, max_digits=7, decimal_places=2)
+    def __str__(self):
+        return self.desc + ': ' + str(self.amt)

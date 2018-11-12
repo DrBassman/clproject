@@ -1,3 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'cl/style.css' %}">
+
+    <title>Contact Comparison</title>
+  </head>
+  <body>
 {% if cl_list %}
 <form action="{% url 'cl:results' %}" method="post">
 {% csrf_token %}
@@ -27,16 +39,20 @@
     </td>
   </tr>
   <tr>
-    <td><input type="number" name="cl_service_amt" value="60.00"></td>
     <td>Contact Lens Eval/Service</td>
+    <td><input type="number" name="cl_service_amt" value="60.00"></td>
   </tr>
   <tr>
+    <td>Exam Amount (or benefit copay)</td>
     <td><input type="number" name="exam_amt" value="150.00"></td>
-    <td>Exam Amount (or copay with benefit)</td>
   </tr>
   <tr>
-    <td><input type="number" name="benefit_amt" value="0.00"></td>
     <td>3rd Party Benefit Amount</td>
+    <td><input type="number" name="benefit_amt" value="0.00"></td>
+  </tr>
+  <tr>
+    <td>Date of Sale:</td>
+    <td><input type="date" name="exam_dt" value="{{ cur_dt }}"></td>
   </tr>
 </table>
 <input type="submit" value="Calculate">
@@ -44,3 +60,5 @@
 {% else %}
   <p>No cls in list</p>
 {% endif %}
+</body>
+</html>

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class ContactLens(models.Model):
-    clens = models.CharField(max_length=32)
+    clens = models.CharField(max_length=128)
     num_year_supply = models.IntegerField()
     cost_per_package = models.DecimalField(max_digits=7, decimal_places=2)
     def __str__(self):

@@ -10,7 +10,13 @@
     <title>Contact Comparison (results)</title>
   </head>
   <body>
-<table>
+  <div class="container">
+    <div class="jumbotron">
+      <img class="rounded float-right" src="{% static 'lol-logo.png' %}" alt="Logo">
+      <h1>Savings Calculator</h1>
+      <p>Quickly calculate the savings on annual contact lens supply.</p>
+    </div>
+<table class="table table-responsive table-sm">
   <tr>
     <th>Eye</th>
     <th>Contact Lens</th>
@@ -38,24 +44,23 @@
     <td>{{ r.amt }}</td>
     {% endfor %}
   </tr>
-  <tr><td></td></tr>
   <tr>
-    <td></td>
-    <td><b>Total:</b></td>
-    <td>{{ year_supply }}</td>
-    <td>{{ halfyear_supply }}</td>
+    <td class="table-secondary"></td>
+    <td class="table-secondary">Total:</td>
+    <td class="table-secondary">{{ year_supply }}</td>
+    <td class="table-secondary">{{ halfyear_supply }}</td>
     {% for r in rebates %}
-    <td></td>
-    <td>{{ r.amt }}</td>
+    <td class="table-secondary"></td>
+    <td class="table-warning">{{ r.amt }}</td>
     {% endfor %}
   </tr>
   <tr>
     <td></td>
-    <td>(-) Discount for Year Supply</td>
-    <td>{{ year_discount }}</td>
+    <td class="table-warning">(-) Discount for Year Supply</td>
+    <td class="table-warning">{{ year_discount }}</td>
     <td>{{ halfyear_discount }}</td>
   </tr>
-  <tr>
+  <tr class="table-secondary">
     <td></td>
     <td>(=) Discounted Total</td>
     <td>{{ discounted_year_supply }}</td>
@@ -65,7 +70,6 @@
     <td>{{ r.dtot }}</td>
     {% endfor %}
   </tr>
-  <tr><td></td></tr>
   <tr>
     <td></td>
     <td>(+) Contact Lens Evaluation</td>
@@ -81,8 +85,7 @@
     <td>(-) 3rd Party Benefit Amount</td>
     <td colspan="2" class="tdcenter">{{ benefit_amt }}</td>
   </tr>
-  <tr><td></td></tr>
-  <tr>
+  <tr class="table-success">
     <td></td>
     <td>(=) Grand Total:</td>
     <td>{{ total_year }}</td>
@@ -93,6 +96,7 @@
     {% endfor %}
   </tr>
 </table>
-<a href="{% url 'cl:index' %}">Calculate another?</a>
+<a class="btn btn-primary" href="{% url 'cl:index' %}">Calculate another?</a>
+</div>
 </body>
 </html>

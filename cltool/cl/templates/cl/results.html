@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'cl/style.css' %}">
 
     <title>Contact Comparison (results)</title>
   </head>
@@ -18,14 +17,14 @@
     </div>
 <table class="table table-responsive table-sm">
   <tr>
-    <th>Eye</th>
+    <th></th>
     <th>Contact Lens</th>
     <th>Year Supply</th>
     <th>6-Month Supply</th>
-    <th colspan="2" class="tdcenter">Date: {{ exam_dt }} / Rebates</th>
+    <th colspan="2" class="text-center">Date: {{ exam_dt }} / Rebates</th>
   </tr>
   <tr>
-    <td>Right Eye Contact Lens</td>
+    <td>Right Eye</td>
     <td>{{ od_contactlens.clens }}</td>
     <td>{{ od_yearsupply }}</td>
     <td>{{ od_6month_supply }}</td>
@@ -35,7 +34,7 @@
     {% endfor %}
   </tr>
   <tr>
-    <td>Left Eye Contact Lens</td>
+    <td>Left Eye</td>
     <td>{{ os_contactlens.clens }}</td>
     <td>{{ os_yearsupply }}</td>
     <td>{{ os_6month_supply }}</td>
@@ -73,17 +72,17 @@
   <tr>
     <td></td>
     <td>(+) Contact Lens Evaluation</td>
-    <td colspan="2" class="tdcenter">{{ cl_service_amt }}</td>
+    <td colspan="2" class="text-center">{{ cl_service_amt }}</td>
   </tr>
   <tr>
     <td></td>
     <td>(+) Examination (or Benefit Copay)</td>
-    <td colspan="2" class="tdcenter">{{ exam_amt }}</td>
+    <td colspan="2" class="text-center">{{ exam_amt }}</td>
   </tr>
   <tr>
     <td></td>
     <td>(-) 3rd Party Benefit Amount</td>
-    <td colspan="2" class="tdcenter">{{ benefit_amt }}</td>
+    <td colspan="2" class="text-center">{{ benefit_amt }}</td>
   </tr>
   <tr class="table-success">
     <td></td>
@@ -96,7 +95,9 @@
     {% endfor %}
   </tr>
 </table>
-<a class="btn btn-primary" href="{% url 'cl:index' %}">Calculate another?</a>
+<form action="{% url 'cl:index' %}">
+  <button class="btn btn-primary" type="submit" autofocus>Calculate another</button>
+</form>
 </div>
 </body>
 </html>

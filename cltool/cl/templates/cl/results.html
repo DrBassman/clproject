@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
 
-    <title>Contact Comparison (results)</title>
+    <title>Contact Tool (results)</title>
   </head>
   <body>
   <div class="container">
     <div class="jumbotron">
-      <img class="rounded float-right" src="{% static 'lol-logo.png' %}" alt="Logo">
-      <h1>Savings Calculator</h1>
+      <a href="{% url 'admin:index' %}"><img class="rounded float-right" src="{% static 'lol-logo.png' %}" alt="Logo"></a>
+      <h1>Contact Lens Tool</h1>
       <p>Quickly calculate the savings on annual contact lens supply.</p>
     </div>
 <table class="table table-responsive table-sm">
@@ -95,7 +95,7 @@
     {% endfor %}
   </tr>
 </table>
-<form action="{% url 'cl:index' %}">
+<form action="{% url 'cl:index' %}" method="get">
   <button class="btn btn-primary" type="submit" autofocus>Calculate another</button>
 </form>
 </div>

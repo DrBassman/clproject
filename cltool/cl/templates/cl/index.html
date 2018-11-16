@@ -1,46 +1,32 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-
-    <title>Contact Tool</title>
-  </head>
-  <body>
-{% if cl_list %}
-<div class="container">
-  <div class="jumbotron">
-    <a href="{% url 'admin:index' %}"><img class="rounded float-right" src="{% static 'lol-logo.png' %}" alt="Logo"></a>
-    <h1>Savings Calculator</h1>
-    <p>Quickly calculate the savings on annual contact lens supply.</p>
-  </div>
+{% extends 'cl/base.html'%}
+{% block content %}
+  {% if cl_list %}
   <form action="{% url 'cl:results' %}" method="post">
     {% csrf_token %}
     <div class="row">
       <div class="col-6">
         <input class="form-control" id="myInput" type="text" placeholder="Search for lenses.." onkeyup="filterLenses()" autofocus>
-      <div style="display: block; max-height: 350px; overflow-y: auto; -ms-overflow-style: -ms-autohiding-scrollbar;">
-        <table class="table table-hover table-sm table-bordered">
-          <thead>
-            <tr>
-              <th>Contact Lens</th>
-              <th class="text-center">Right Eye</th>
-              <th class="text-center">Left Eye</th>
-            </tr>
-          </thead>
-          <tbody id="Choices">
-            {% for cl in cl_list %}
-            <tr>
-              <td>{{ cl.clens }} <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
-              <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}"></td>
-              <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}"></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div></div>
+        <div style="display: block; max-height: 350px; overflow-y: auto; -ms-overflow-style: -ms-autohiding-scrollbar;">
+          <table class="table table-hover table-sm table-bordered">
+            <thead>
+              <tr>
+                <th>Contact Lens</th>
+                <th class="text-center">Right Eye</th>
+                <th class="text-center">Left Eye</th>
+              </tr>
+            </thead>
+            <tbody id="Choices">
+              {% for cl in cl_list %}
+              <tr>
+                <td>{{ cl.clens }} <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
+                <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}"></td>
+                <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}"></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="col-6">
         <div class="form-group">
           <label for="cl_service_amt">Contact Lens Eval/Service</label>
@@ -81,5 +67,4 @@ function filterLenses() {
     }
 }
 </script>
-</body>
-</html>
+{% endblock %}

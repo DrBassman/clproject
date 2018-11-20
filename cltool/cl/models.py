@@ -40,3 +40,10 @@ class ContactRebate(models.Model):
         return self.desc + ': ' + str(self.amt)
     class Meta:
         ordering = ["-to_dt"]
+
+class ConfigDefaults(models.Model):
+    def_cl_service_amt = models.DecimalField(max_digits=7, decimal_places=2)
+    def_exam_amt = models.DecimalField(max_digits=7, decimal_places=2)
+    def_benefit_amt = models.DecimalField(max_digits=7, decimal_places=2)
+    class Meta:
+        verbose_name_plural="Defaults (only 1 record)"

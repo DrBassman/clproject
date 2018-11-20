@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django import forms
-from .models import ContactAttribute, ContactLens, ContactRebate
+from .models import ContactAttribute, ContactLens, ContactRebate, ConfigDefaults
 
 class ContactLensAdminForm(forms.ModelForm):
     class Meta:
@@ -41,3 +41,4 @@ class ContactLensAdmin(admin.ModelAdmin):
 admin.site.register(ContactLens, ContactLensAdmin)
 admin.site.register(ContactAttribute)
 admin.site.register(ContactRebate)
+admin.site.register(ConfigDefaults)

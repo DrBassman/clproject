@@ -19,8 +19,8 @@
               {% for cl in cl_list %}
               <tr>
                 <td><div><a class="form-check-label" href="#" data-toggle="tooltip" data-placement="bottom" title="${{ cl.cost_per_package }} per package">{{ cl.clens }}</a></div> <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
-                <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}" onclick="od_clicked()""></td>
-                <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}" onclick="os_clicked()"></td>
+                <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}" required></td>
+                <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}" required></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -44,7 +44,7 @@
           <label for="exam_dt">Date of Sale:</label>
           <input class="form-control" type="date" name="exam_dt" value="{{ cur_dt }}" required>
         </div>
-        <button type="submit" class="btn btn-outline-primary" id="calculate" disabled>Calculate</button>
+        <button type="submit" class="btn btn-outline-primary" id="calculate">Calculate</button>
       </div>
     </div>
   </form>
@@ -54,20 +54,6 @@
 {% endblock %}
 {% block script %}
 <script>
-var od_selected=false, os_selected=false;
-function act_calculate() {
-  if (od_selected && os_selected) {
-    document.getElementById("calculate").disabled = false;
-  }
-}
-function od_clicked() {
-  od_selected=true;
-  act_calculate();
-}
-function os_clicked() {
-  os_selected=true;
-  act_calculate();
-}
 function filterLenses() {
     var input, filter, div, option, e, i, j;
     input = document.getElementById("myInput");

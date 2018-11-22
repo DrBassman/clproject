@@ -4,9 +4,8 @@
   <form action="{% url 'cl:results' %}" method="post">
     {% csrf_token %}
     <div class="row">
-      <div class="col-6">
-        <input class="form-control" id="myInput" type="text" placeholder="Search for lenses.." onkeyup="filterLenses()" autofocus>
-        <div style="display: block; max-height: 350px; overflow-y: auto; -ms-overflow-style: -ms-autohiding-scrollbar;">
+      <div class="col-7">
+        <input class="form-control" id="clSearch" type="text" placeholder="Search for lenses.." autofocus>
           <table class="table table-hover table-sm table-bordered">
             <thead>
               <tr>
@@ -18,26 +17,39 @@
             <tbody id="Choices">
               {% for cl in cl_list %}
               <tr>
-                <td><div><a class="form-check-label" href="#" data-toggle="tooltip" data-placement="bottom" title="${{ cl.cost_per_package }} per package">{{ cl.clens }}</a></div> <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
+                <td><div><a
+                  class="form-check-label"
+                  href="#" data-html="true"
+                  data-toggle="popover"
+                  data-trigger="hover"
+                  data-placement="bottom"
+                  title="{{ cl.clens }}"
+                  data-content="
+                    <ul>
+                      <li>${{ cl.cost_per_package }} per package.</li>
+                      <li>{{ cl.num_year_supply }} pack(s) per eye for a year supply.</li>
+                      <li>${{ cl.ys }} year supply for both eyes.</li>
+                    </ul>
+                  "
+                  >{{ cl.clens }}</a></div> <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
                 <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}" required></td>
                 <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}" required></td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
-        </div>
       </div>
-      <div class="col-6">
+      <div class="col-5">
         <div class="form-group">
-          <label for="cl_service_amt">Contact Lens Eval/Service</label>
+          <label for="cl_service_amt">Contact Lens Eval/Service:</label>
           <input class="form-control" type="number" name="cl_service_amt" value="{{ def_amts.def_cl_service_amt }}" required>
         </div>
         <div class="form-group">
-          <label for="exam_amt">Exam Amount (or benefit copay)</label>
+          <label for="exam_amt">Exam Amount (or benefit copay):</label>
           <input class="form-control" type="number" name="exam_amt" value="{{ def_amts.def_exam_amt }}" required>
         </div>
         <div class="form-group">
-          <label for="benefit_amt">3rd Party Benefit Amount</label>
+          <label for="benefit_amt">3rd Party Benefit Amount:</label>
           <input class="form-control" type="number" name="benefit_amt" value="{{ def_amts.def_benefit_amt }}" required>
         </div>
         <div class="form-group">
@@ -46,9 +58,6 @@
         </div>
         <button type="submit" class="btn btn-outline-primary" id="calculate">Calculate</button>
       </div>
-<div class="col-6">
-  {{ form }}
-</div>
     </div>
   </form>
   {% else %}
@@ -57,22 +66,14 @@
 {% endblock %}
 {% block script %}
 <script>
-function filterLenses() {
-    var input, filter, div, option, e, i, j;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("Choices");
-    option = div.getElementsByTagName("tr");
-    for (i = 0; i < option.length; i++) {
-      if (option[i].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
-        option[i].style.display = "";
-      } else {
-        option[i].style.display = "none";
-      }
-    }
-}
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="popover"]').popover();
+  $('#clSearch').on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $('#Choices tr').filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 });
 </script>
 {% endblock %}

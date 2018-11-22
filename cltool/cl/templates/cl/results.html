@@ -80,7 +80,10 @@
     {% endfor %}
   </tr>
 </table>
-<form action="{% url 'cl:index' %}" method="get">
-  <button class="btn btn-outline-primary" type="submit" autofocus>Calculate another</button>
-</form>
+  <a href="{% url 'cl:index' %}" id="again" class="btn btn-outline-primary" autofocus>Calculate another</a>
+{% endblock %}
+{% block script %}
+<script>
+  $("#again").focus();
+</script>
 {% endblock %}

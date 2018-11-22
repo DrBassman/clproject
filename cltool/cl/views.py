@@ -5,16 +5,20 @@ import datetime
 
 from decimal import Decimal, getcontext
 from .models import ContactLens, ConfigDefaults
+from .forms import FooForm
 
 # Create your views here.
 def index(request):
     cl_list = ContactLens.objects.order_by('clens')
     def_amts = ConfigDefaults.objects.get(pk=1)
     cur_dt = datetime.date.today().strftime('%Y-%m-%d')
+    print(cur_dt)
+    form = FooForm()
     context = {
         'cl_list': cl_list,
         'def_amts': def_amts,
         'cur_dt': cur_dt,
+        'form': form,
     }
     return render(request, 'cl/index.html', context)
 

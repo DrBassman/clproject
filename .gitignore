@@ -5,3 +5,4 @@ clsenv
 mysite
 /static
 .DS_Store
+cltool/cltool/settings.py

@@ -46,15 +46,15 @@
       <div class="col-5">
         <div class="form-group">
           <label for="cl_service_amt">Contact Lens Eval/Service:</label>
-          <input class="form-control" type="number" name="cl_service_amt" value="{{ def_amts.def_cl_service_amt }}" required>
+          <input class="form-control" type="number" name="cl_service_amt" value="{{ def_amts.def_cl_service_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="exam_amt">Exam Amount (or benefit copay):</label>
-          <input class="form-control" type="number" name="exam_amt" value="{{ def_amts.def_exam_amt }}" required>
+          <input class="form-control" type="number" name="exam_amt" value="{{ def_amts.def_exam_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="benefit_amt">3rd Party Benefit Amount:</label>
-          <input class="form-control" type="number" name="benefit_amt" value="{{ def_amts.def_benefit_amt }}" required>
+          <input class="form-control" type="number" name="benefit_amt" value="{{ def_amts.def_benefit_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="exam_dt">Date of Sale:</label>

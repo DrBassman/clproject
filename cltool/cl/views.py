@@ -45,25 +45,44 @@ def results(request):
     total_year = (discounted_year_supply + cl_service_amt + exam_amt - benefit_amt).quantize(TP)
     total_halfyear = (halfyear_supply + cl_service_amt + exam_amt - benefit_amt).quantize(TP)
     rebates = []
-    amt = 0
+    amt = Decimal(0)
     num_exclusive=0
+    num_nonexclusive=0
+    od_ne = Decimal(0)
+    os_ne = Decimal(0)
+    dtot_ne = Decimal(0)
+    tot_year_ne = Decimal(0)
     if len(od_rebates) == len(os_rebates) and len(od_rebates) > 0:
         for i in range(0,len(od_rebates)):
+            rebates.append({
+                'amt': (od_rebates[i].amt + os_rebates[i].amt).quantize(TP),
+                'dtot': (discounted_year_supply - od_rebates[i].amt - os_rebates[i].amt).quantize(TP),
+                'gtot': (total_year - od_rebates[i].amt - os_rebates[i].amt).quantize(TP),
+            })
             if od_rebates[i].exclusive:
                 num_exclusive += 1
-                rebates.append({
-                    'amt': (od_rebates[i].amt + os_rebates[i].amt).quantize(TP),
-                    'dtot': (discounted_year_supply - od_rebates[i].amt - os_rebates[i].amt).quantize(TP),
-                    'gtot': (total_year - od_rebates[i].amt - os_rebates[i].amt).quantize(TP),
-                })
             else:
-                rebates.append({'amt' : (od_rebates[i].amt + os_rebates[i].amt).quantize(TP)})
+                num_nonexclusive += 1
+                od_ne += od_rebates[i].amt
+                os_ne += os_rebates[i].amt
                 amt += od_rebates[i].amt + os_rebates[i].amt
 # Kludge!!!!!  Want to get total for non-exclusive Rebates added together
-        if num_exclusive == 0:
-            rebates[0]['amt'] = (amt).quantize(TP)
-            rebates[0]['dtot'] = (discounted_year_supply - amt).quantize(TP)
-            rebates[0]['gtot'] = (total_year - amt).quantize(TP)
+#        if num_exclusive == 0:
+#            rebates[0]['amt'] = (amt).quantize(TP)
+#            rebates[0]['dtot'] = (discounted_year_supply - amt).quantize(TP)
+#            rebates[0]['gtot'] = (total_year - amt).quantize(TP)
+    if num_nonexclusive > 1:
+        od_ne = (od_ne).quantize(TP)
+        os_ne = (os_ne).quantize(TP)
+        amt = (amt).quantize(TP)
+        dtot_ne = (discounted_year_supply - amt).quantize(TP)
+        tot_year_ne = (total_year - amt).quantize(TP)
+    else:
+        od_ne = 0
+        os_ne = 0
+        amt = 0
+        dtot_ne = 0
+        tot_year_ne = 0
     context = {
         'exam_dt': exam_dt,
         'od_contactlens': od_contactlens,
@@ -85,5 +104,10 @@ def results(request):
         'od_rebates': od_rebates,
         'os_rebates': os_rebates,
         'rebates': rebates,
+        'amt': amt,
+        'od_ne': od_ne,
+        'os_ne': os_ne,
+        'dtot_ne': dtot_ne,
+        'tot_year_ne': tot_year_ne,
     }
     return render(request, 'cl/results.html', context)

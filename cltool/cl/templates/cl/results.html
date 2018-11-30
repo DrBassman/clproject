@@ -6,7 +6,11 @@
     <th>Contact Lens</th>
     <th>Year Supply</th>
     <th>6-Month Supply</th>
-    <th colspan="2" class="text-center">Date: {{ exam_dt }} / Rebates</th>
+    {% if rebates %}
+      <th colspan="2" class="text-center">Date: {{ exam_dt }} / Rebates</th>
+    {% else %}
+      <th class="text-center">Date: {{ exam_dt }} / <b>NO</b> active Rebates</th>
+    {% endif %}
   </tr>
   <tr>
     <td>Right Eye</td>
@@ -14,9 +18,13 @@
     <td>{{ od_yearsupply }}</td>
     <td>{{ od_6month_supply }}</td>
     {% for r in od_rebates %}
-    <td>{{ r.desc }}</td>
-    <td>{{ r.amt }}</td>
+      <td>{{ r.desc }}</td>
+      <td>{{ r.amt }}</td>
     {% endfor %}
+    {% if od_ne %}
+      <td>Total NE Rebates:</td>
+      <td>{{ od_ne }}</td>
+    {% endif %}
   </tr>
   <tr>
     <td>Left Eye</td>
@@ -24,9 +32,13 @@
     <td>{{ os_yearsupply }}</td>
     <td>{{ os_6month_supply }}</td>
     {% for r in os_rebates %}
-    <td>{{ r.desc }}</td>
-    <td>{{ r.amt }}</td>
+      <td>{{ r.desc }}</td>
+      <td>{{ r.amt }}</td>
     {% endfor %}
+    {% if os_ne %}
+      <td>Total NE Rebates:</td>
+      <td>{{ os_ne }}</td>
+    {% endif %}
   </tr>
   <tr>
     <td class="table-secondary"></td>
@@ -34,9 +46,13 @@
     <td class="table-secondary">{{ year_supply }}</td>
     <td class="table-secondary">{{ halfyear_supply }}</td>
     {% for r in rebates %}
-    <td class="table-secondary"></td>
-    <td class="table-warning">{{ r.amt }}</td>
+      <td class="table-secondary"></td>
+      <td class="table-warning">{{ r.amt }}</td>
     {% endfor %}
+    {% if amt %}
+      <td class="table-secondary"></td>
+      <td class="table-warning">{{ amt }}</td>
+    {% endif %}
   </tr>
   <tr>
     <td></td>
@@ -50,9 +66,13 @@
     <td>{{ discounted_year_supply }}</td>
     <td>{{ halfyear_supply }}</td>
     {% for r in rebates %}
-    <td></td>
-    <td>{{ r.dtot }}</td>
+      <td></td>
+      <td>{{ r.dtot }}</td>
     {% endfor %}
+    {% if amt %}
+      <td></td>
+      <td>{{ dtot_ne }}</td>
+    {% endif %}
   </tr>
   <tr>
     <td></td>
@@ -75,9 +95,13 @@
     <td>{{ total_year }}</td>
     <td>{{ total_halfyear }}</td>
     {% for r in rebates %}
-    <td></td>
-    <td>{{ r.gtot }}</td>
+      <td></td>
+      <td>{{ r.gtot }}</td>
     {% endfor %}
+    {% if amt %}
+      <td></td>
+      <td>{{ tot_year_ne }}</td>
+    {% endif %}
   </tr>
 </table>
   <a href="{% url 'cl:index' %}" id="again" class="btn btn-outline-primary" autofocus>Calculate another</a>

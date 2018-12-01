@@ -7,14 +7,31 @@
     <th>Year Supply</th>
     <th>6-Month Supply</th>
     {% if rebates %}
-      <th colspan="2" class="text-center">Date: {{ exam_dt }} / Rebates</th>
+      <th colspan="{{ num_rebates }}" class="text-center">Sale Date: {{ exam_dt }} / Active Rebates</th>
     {% else %}
-      <th class="text-center">Date: {{ exam_dt }} / <b>NO</b> active Rebates</th>
+      <th class="text-center">Sale Date: {{ exam_dt }} / <b>NO</b> active Rebates</th>
     {% endif %}
   </tr>
   <tr>
     <td>Right Eye</td>
-    <td>{{ od_contactlens.clens }}</td>
+    <td>
+      <div
+        class="form-check-label"
+        href="#" data-html="true"
+        data-toggle="popover"
+        data-trigger="hover"
+        data-placement="right"
+        title="{{ od_contactlens.clens }}"
+        data-content="
+          <ul class=list-group>
+            <li class=list-group-item>${{ od_contactlens.cost_per_package }} per package.</li>
+            <li class=list-group-item>{{ od_contactlens.num_year_supply }} pack(s) per eye for a year supply.</li>
+            <li class=list-group-item>${{ od_contactlens.ys }} discounted cost per package.</li>
+          </ul>
+        "
+        >{{ od_contactlens.clens }}
+      </div>
+    </td>
     <td>{{ od_yearsupply }}</td>
     <td>{{ od_6month_supply }}</td>
     {% for r in od_rebates %}
@@ -28,7 +45,24 @@
   </tr>
   <tr>
     <td>Left Eye</td>
-    <td>{{ os_contactlens.clens }}</td>
+    <td>
+      <div
+        class="form-check-label"
+        href="#" data-html="true"
+        data-toggle="popover"
+        data-trigger="hover"
+        data-placement="right"
+        title="{{ os_contactlens.clens }}"
+        data-content="
+          <ul class=list-group>
+            <li class=list-group-item>${{ os_contactlens.cost_per_package }} per package.</li>
+            <li class=list-group-item>{{ os_contactlens.num_year_supply }} pack(s) per eye for a year supply.</li>
+            <li class=list-group-item>${{ os_contactlens.ys }} discounted cost per package.</li>
+          </ul>
+        "
+        >{{ os_contactlens.clens }}
+      </div>
+    </td>
     <td>{{ os_yearsupply }}</td>
     <td>{{ os_6month_supply }}</td>
     {% for r in os_rebates %}
@@ -108,6 +142,9 @@
 {% endblock %}
 {% block script %}
 <script>
-  $("#again").focus();
+$("#again").focus();
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
 </script>
 {% endblock %}

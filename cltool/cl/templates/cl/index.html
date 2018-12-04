@@ -17,21 +17,25 @@
             <tbody id="Choices">
               {% for cl in cl_list %}
               <tr>
-                <td><div><a
-                  class="form-check-label"
-                  href="#" data-html="true"
-                  data-toggle="popover"
-                  data-trigger="hover"
-                  data-placement="bottom"
-                  title="{{ cl.clens }}"
-                  data-content="
-                    <ul>
-                      <li>${{ cl.cost_per_package }} per package.</li>
-                      <li>{{ cl.num_year_supply }} pack(s) per eye for a year supply.</li>
-                      <li>${{ cl.ys }} year supply for both eyes.</li>
-                    </ul>
-                  "
-                  >{{ cl.clens }}</a></div> <div style="display:none;">{{ cl.has_rebate }} {% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}</div></td>
+                <td>
+                  <div
+                    class="form-check-label"
+                    href="#" data-html="true"
+                    data-toggle="popover"
+                    data-trigger="hover"
+                    data-placement="bottom"
+                    title="{{ cl.clens }}"
+                    data-content="
+                      <ul class=list-group>
+                        <li class=list-group-item>${{ cl.cost_per_package }} per package.</li>
+                        <li class=list-group-item>{{ cl.num_year_supply }} pack(s) per eye for a year supply.</li>
+                        <li class=list-group-item>${{ cl.ys }} year supply for both eyes.</li>
+                      </ul>
+                    "
+                  >{{ cl.clens }}</div>
+                  <div style="display:none;">{% if cl.has_rebate %}{{ cl.has_rebate }} {% endif %}{% for a in cl.contactattribute_set.all %}{{ a.attribute }} {% endfor %}
+                  </div>
+                </td>
                 <td class="text-center"><input class="custom-radio" type="radio" name="od_cl" value="{{ cl.id }}" required></td>
                 <td class="text-center"><input class="custom-radio" type="radio" name="os_cl" value="{{ cl.id }}" required></td>
               </tr>
@@ -42,15 +46,15 @@
       <div class="col-5">
         <div class="form-group">
           <label for="cl_service_amt">Contact Lens Eval/Service:</label>
-          <input class="form-control" type="number" name="cl_service_amt" value="{{ def_amts.def_cl_service_amt }}" required>
+          <input class="form-control" type="number" name="cl_service_amt" value="{{ def_amts.def_cl_service_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="exam_amt">Exam Amount (or benefit copay):</label>
-          <input class="form-control" type="number" name="exam_amt" value="{{ def_amts.def_exam_amt }}" required>
+          <input class="form-control" type="number" name="exam_amt" value="{{ def_amts.def_exam_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="benefit_amt">3rd Party Benefit Amount:</label>
-          <input class="form-control" type="number" name="benefit_amt" value="{{ def_amts.def_benefit_amt }}" required>
+          <input class="form-control" type="number" name="benefit_amt" value="{{ def_amts.def_benefit_amt }}" step="0.01" required>
         </div>
         <div class="form-group">
           <label for="exam_dt">Date of Sale:</label>
